@@ -1,8 +1,8 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Pather", "Pather\Pather.csproj", "{638F266F-B9E8-4BE1-BFDF-BA790A0F03F2}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EventHandler", "EventHandler\EventHandler.csproj", "{638F266F-B9E8-4BE1-BFDF-BA790A0F03F2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PatherUnitTests", "PatherUnitTests\PatherUnitTests.csproj", "{C1FCFD20-D0DD-432A-B2F8-6C4A2951F2B6}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EventHandlerUT", "PatherUnitTests\EventHandlerUT.csproj", "{C1FCFD20-D0DD-432A-B2F8-6C4A2951F2B6}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

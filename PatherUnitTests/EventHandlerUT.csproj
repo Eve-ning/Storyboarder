@@ -14,7 +14,7 @@
     </ItemGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\Pather\Pather.csproj" />
+      <ProjectReference Include="..\EventHandler\EventHandler.csproj" />
     </ItemGroup>
 
 </Project>
