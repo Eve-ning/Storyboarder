@@ -1,7 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Collections.Generic;
+using System.IO;
 using System.Numerics;
+using Pather.Modifiers;
 
 namespace Pather
 {
@@ -19,6 +19,8 @@ namespace Pather
         public Vector3 InitialVecXyt = new Vector3(0, 1, -1);
         public Vector3 FinalVecXyt   = new Vector3(0, 0, 0);
         
+        public List<PathModifier> Modifiers = new List<PathModifier>();
+
         /// <summary>
         /// Samples the Basic Path to generate discrete path anchors
         /// </summary>
@@ -36,15 +38,16 @@ namespace Pather
 
             return vector3List;
         }
-        
-        public static String PrintOut()
+
+        public List<Vector3> SampleTransform(int points)
         {
-            Microsoft.Scripting.Hosting.ScriptEngine pyEngine =
-                IronPython.Hosting.Python.CreateEngine();
-            Microsoft.Scripting.Hosting.ScriptSource pySrc =
-                pyEngine.CreateScriptSourceFromString("print('hello!')");
-            pySrc.Execute();
-            return "Helo";
+            var samples = Sample(points);
+            foreach (var modifier in Modifiers)
+            {
+                samples = modifier.ModifyAll(samples);
+            }
+
+            return samples;
         }
     }
 }

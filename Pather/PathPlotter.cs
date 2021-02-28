@@ -13,8 +13,7 @@ namespace Pather
         private static int _plotCircleSize = 3;
         private static int _maxRgb = 255;
         
-        public static void PlotPoints(List<Vector3> points,
-            String exportPath)
+        public static void PlotPoints(List<Vector3> points, String exportPath)
         {
             using (var bmp = new Bitmap(_plotSize, _plotSize))
             using (var gfx = Graphics.FromImage(bmp))
@@ -41,16 +40,21 @@ namespace Pather
         /// Y in [-1, 1]
         /// T in [-1, 0]
         ///
-        /// to be the viewable screen.  
+        /// to be the viewable screen.
+        /// Returns XYT in the expected range of
+        /// [0, 1000], [1000, 0], [0, 255] 
         /// </summary>
         /// <param name="vector3"></param>
-        /// <returns></returns>
+        /// <returns> </returns>
         public static Vector3 ConvertPathPoint(Vector3 vector3)
         {
             return new(
+                // [-1, 1] -> [0, 2] -> [0, 1000]
                 (vector3.X + 1) * _plotSize / 2,
+                // [-1, 1] -> [0, 2] -> [1000, 0] : Y Axis is flipped
                 _plotSize - (vector3.Y + 1) * _plotSize / 2,
-                (vector3.Z + 1) * 255
+                // [-1, 0] -> [0, 1] -> [0, 255]
+                (vector3.Z + 1) * _maxRgb
             );
         }
     }
