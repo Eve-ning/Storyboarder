@@ -77,6 +77,16 @@ namespace EventHandlerUT
             PlotPoints(_eventHandler);
         }
         
+        [Test]
+        public void TestHybrid()
+        {
+            _eventHandler.Modifiers.Add(new EventRotate(t => (float) (16 * Math.PI * t)));
+            _eventHandler.Modifiers.Add(new EventScaleX(t => (float) Math.Sin(-t * 2 * Math.PI)));
+            _eventHandler.Modifiers.Add(new EventScaleY(t => (float) Math.Cos(-t * 2 * Math.PI)));
+
+            PlotPoints(_eventHandler);
+        }
+        
         [TearDown]
         public void TearDown()
         {
