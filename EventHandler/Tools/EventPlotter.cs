@@ -10,9 +10,17 @@ namespace EventHandler.Tools
     {
         private static int _plotSize = 1000;
         private static int _plotPieSize = 20;
+        private static float _plotPieSweepStart = 270f;
         private static int _maxRgb = 255;
         private static float _plotPieSweep = 40f;
         
+        /// <summary>
+        /// Plots the event.
+        /// The Event Time MUST span from -1 to 0.
+        /// </summary>
+        /// <param name="events"></param>
+        /// <param name="exportPath"></param>
+        /// <param name="drawPath"></param>
         public static void PlotPoints(SpriteEventList events, String exportPath,
             bool drawPath = true)
         {
@@ -47,7 +55,8 @@ namespace EventHandler.Tools
                         evConv.X - newSize / 2, 
                         evConv.Y - newSize / 2,
                         newSize, newSize,
-                        270f - _plotPieSweep / 2 - evConv.R, _plotPieSweep);
+                        _plotPieSweepStart - _plotPieSweep / 2 - evConv.R,
+                        _plotPieSweep);
                     
                     if (drawPath && (prevX >= 0 || prevY >= 0))
                         gfx.DrawLine(pen,
@@ -76,7 +85,7 @@ namespace EventHandler.Tools
         /// Returns XYT in the expected range of
         /// [0, 1000], [1000, 0], [0, 255] 
         /// </summary>
-        /// <param name="vector3"></param>
+        /// <param name="ev"></param>
         /// <returns> </returns>
         public static SpriteEvent ConvertEvent(SpriteEvent ev)
         {
