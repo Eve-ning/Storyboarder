@@ -1,49 +1,35 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using EventHandler.Sprite;
+using MathNet.Numerics.LinearAlgebra;
+using MathNet.Numerics.LinearAlgebra.Single;
 
 namespace TimelineHandler.Timeline
 {
     public class TlSpriteEventConstructor
     {
-        private SpriteEventConstructor EventConstructor { get; set; }
+        private List<SpriteEventConstructor> EventConstructors { get; set; }
         private float Begin { get; set; }
         private float End { get; set; }
 
         private float Length => End - Begin;
 
-        public TlSpriteEventConstructor(SpriteEventConstructor eventConstructor, float begin, float end)
+        public TlSpriteEventConstructor(List<SpriteEventConstructor> eventConstructors)
         {
-            EventConstructor = eventConstructor;
-            if (begin >= end) 
-                throw new ArgumentException($"Begin {begin}ms cannot be later than End {end}ms.");
-            
-            Begin = begin;
-            End = end;
+            EventConstructors = eventConstructors;
         }
 
         public SpriteEventList Sample(int pts)
         {
-            var samples = EventConstructor.SampleEvents(pts);
-            samples.T = samples.T * Length + End;
-            return samples;
+            Matrix<float>[,] matrix = new Matrix<float>[EventConstructors.Count,1];
+            for (var i = 0; i < EventConstructors.Count; i++)
+            {
+                matrix[i, 0] = EventConstructors[i].SampleTransform(pts).events;
+            }
+            var samples = Matrix<float>.Build.DenseOfMatrixArray(matrix);
+            return new SpriteEventList(samples);
         }
 
-        /// <summary>
-        /// Sets the Length of the Event by moving the Begin Variable
-        /// </summary>
-        /// <param name="length"></param>
-        public void SetLengthMovingBegin(float length)
-        {
-            Begin = End - Length;
-        }
-        
-        /// <summary>
-        /// Sets the Length of the Event by moving the End Variable
-        /// </summary>
-        /// <param name="length"></param>
-        public void SetLengthMovingEnd(float length)
-        {
-            End = Begin + length;
-        }
     }
 }
