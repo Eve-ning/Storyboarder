@@ -11,7 +11,12 @@ namespace EventHandler.Modifiers
 
         public SpriteEventList ModifyAll(SpriteEventList evList)
         {
-            return new (evList.events.Select(Modify).ToList());
+            for (int i = 0; i < evList.events.RowCount; i++)
+            {
+                var ev = new SpriteEvent(evList.events.Row(i));
+                evList.events.SetRow(i, Modify(ev).data.ToArray());
+            }
+            return evList;
         }
     }
 }

@@ -23,7 +23,7 @@ namespace EventHandler.Tools
                 gfx.Clear(Color.Black);
                 float prevX = -1f;
                 float prevY = -1f;
-
+                
                 // Draw Axis
                 gfx.DrawLine(new Pen(Color.Gray),
                     0f, (float) _plotSize / 2,
@@ -34,7 +34,7 @@ namespace EventHandler.Tools
                 
                 foreach (var ev in events)
                 {
-                    var evConv = ConvertEvent(ev);
+                    var evConv = ConvertEvent(new SpriteEvent(ev));
                     pen.Color = Color.FromArgb(
                         (int)evConv.A,
                         (int)evConv.T,
@@ -59,22 +59,13 @@ namespace EventHandler.Tools
                     prevX = evConv.X;
                     prevY = evConv.Y;
 
-                    Console.Write(ev.ToString() + " | \t | ");
+                    Console.Write(new SpriteEvent(ev).ToString() + " | \t | ");
                     Console.WriteLine(evConv.ToString());
                 }
                 bmp.Save(exportPath);
             }
         }
 
-        struct Pie
-        {
-            public int X;
-            public int Y;
-            public int S;
-            public int A;
-            public int R;
-        }
-        
         /// <summary>
         /// We expect
         /// X in [-1, 1]

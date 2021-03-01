@@ -28,13 +28,11 @@ namespace EventHandler.Sprite
         /// <returns>A List of Sampled Vector3 points</returns>
         public SpriteEventList SampleEvents(int points)
         {
-            var evList = new SpriteEventList(new List<SpriteEvent>());
+            var evList = new SpriteEventList(new List<SpriteEvent>(), points + 1);
             var evDiff = Init - Final;
-            for (int t = 0; t <= points; t++)
-            {
-                var ev = Init - evDiff * t / points;
-                evList.Add(ev);
-            }
+
+            for (var t = 0; t <= points; t++)
+                evList.events.SetRow(t, (Init - evDiff * t / points).data);
 
             return evList;
         }
