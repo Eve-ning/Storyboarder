@@ -17,7 +17,7 @@ namespace EventHandler.Sprite
         /// <param name="r">Rotate</param>
         /// <param name="t">Time</param>
         public SpriteEvent(float x = 0, float y = 1, float s = 1,
-                           float a = 0, float r = 0, float t = -1)
+                           float a = 1, float r = 0, float t = -1)
         {
             float[] ar = {x, y, s, a, r, t};
             data = Vector<float>.Build.Dense(ar);

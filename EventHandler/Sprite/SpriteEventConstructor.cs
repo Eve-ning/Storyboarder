@@ -13,7 +13,7 @@ namespace EventHandler.Sprite
      *
      * Whenever we transform the Vector 
      */
-    public class SpriteEventHandler
+    public class SpriteEventConstructor
     {
         // This vector is the vector 3 of X-Axis, Y-Axis, and the time.
         public SpriteEvent Init  = new SpriteEvent(0,1,1,1,0,-1);
