@@ -22,7 +22,7 @@ namespace EventHandler.Sprite
         public List<float> X() { return events.Select(ev => ev.X).ToList(); }
         public List<float> Y() { return events.Select(ev => ev.Y).ToList(); }
         public List<float> S() { return events.Select(ev => ev.S).ToList(); }
-        public List<float> F() { return events.Select(ev => ev.F).ToList(); }
+        public List<float> F() { return events.Select(ev => ev.A).ToList(); }
         public List<float> R() { return events.Select(ev => ev.R).ToList(); }
         public List<float> T() { return events.Select(ev => ev.T).ToList(); }
         

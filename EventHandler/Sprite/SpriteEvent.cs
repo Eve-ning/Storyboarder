@@ -9,11 +9,18 @@ namespace EventHandler.Sprite
         public const int Length = 6;
         public Vector<float> data;
         private int _position = -1;
+        
+        /// <param name="x">X Axis</param>
+        /// <param name="y">Y Axis</param>
+        /// <param name="s">Scale</param>
+        /// <param name="a">Alpha</param>
+        /// <param name="r">Rotate</param>
+        /// <param name="t">Time</param>
         public SpriteEvent(float x = 0, float y = 1, float s = 1,
-                           float f = 0, float r = 0, float t = -1)
+                           float a = 0, float r = 0, float t = -1)
         {
-            float[] a = {x, y, s, f, r, t};
-            data = Vector<float>.Build.Dense(a);
+            float[] ar = {x, y, s, a, r, t};
+            data = Vector<float>.Build.Dense(ar);
         }
 
         public SpriteEvent(Vector<float> data)
@@ -60,7 +67,7 @@ namespace EventHandler.Sprite
             yield return X;
             yield return Y;
             yield return S;
-            yield return F;
+            yield return A;
             yield return R;
             yield return T;
         }
@@ -68,7 +75,7 @@ namespace EventHandler.Sprite
         public float X { get { return data[0]; } set { data[0] = value; } }
         public float Y { get { return data[1]; } set { data[1] = value; } }
         public float S { get { return data[2]; } set { data[2] = value; } }
-        public float F { get { return data[3]; } set { data[3] = value; } }
+        public float A { get { return data[3]; } set { data[3] = value; } }
         public float R { get { return data[4]; } set { data[4] = value; } }
         public float T { get { return data[5]; } set { data[5] = value; } }
         
@@ -82,7 +89,7 @@ namespace EventHandler.Sprite
 
         public override string ToString()
         {
-            return $"{nameof(X)}: {X}, {nameof(Y)}: {Y}, {nameof(S)}: {S}, {nameof(F)}: {F}, {nameof(R)}: {R}, {nameof(T)}: {T}";
+            return $"{nameof(X)}: {X}, {nameof(Y)}: {Y}, {nameof(S)}: {S}, {nameof(A)}: {A}, {nameof(R)}: {R}, {nameof(T)}: {T}";
         }
     }
 }

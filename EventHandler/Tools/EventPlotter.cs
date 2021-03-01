@@ -36,15 +36,17 @@ namespace EventHandler.Tools
                 {
                     var evConv = ConvertEvent(ev);
                     pen.Color = Color.FromArgb(
-                        (int)evConv.F,
+                        (int)evConv.A,
                         (int)evConv.T,
                         _maxRgb - (int) evConv.T,
                         (int) _maxRgb / 2);
+
+                    var newSize = Math.Max((float) _plotPieSize * evConv.S, 0.001f);
                     gfx.DrawPie(
                         pen,
-                        evConv.X - (float) _plotPieSize / 2, 
-                        evConv.Y - (float) _plotPieSize / 2,
-                        evConv.S * _plotPieSize, evConv.S * _plotPieSize,
+                        evConv.X - newSize / 2, 
+                        evConv.Y - newSize / 2,
+                        newSize, newSize,
                         270f - _plotPieSweep / 2 - evConv.R, _plotPieSweep);
                     
                     if (drawPath && (prevX >= 0 || prevY >= 0))
@@ -57,8 +59,8 @@ namespace EventHandler.Tools
                     prevX = evConv.X;
                     prevY = evConv.Y;
 
-                    // Console.Write(ev.ToString() + " | \t | ");
-                    // Console.WriteLine(evConv.ToString());
+                    Console.Write(ev.ToString() + " | \t | ");
+                    Console.WriteLine(evConv.ToString());
                 }
                 bmp.Save(exportPath);
             }
@@ -98,7 +100,7 @@ namespace EventHandler.Tools
                 ev.S,
                 
                 // [0, 1] -> [0, 255]
-                ev.F * _maxRgb,
+                ev.A * _maxRgb,
                 
                 // R Convert to Degrees
                 (float)(ev.R * 360f / 2 / Math.PI) ,

@@ -19,9 +19,9 @@ namespace EventHandlerUT
             System.IO.Directory.CreateDirectory(dir);
         }
 
-        public void PlotPoints(SpriteEventHandler eventHandler)
+        public void PlotPoints(SpriteEventHandler eventHandler, int ptsMul = 1)
         {
-            EventPlotter.PlotPoints(eventHandler.SampleTransform(_pts),
+            EventPlotter.PlotPoints(eventHandler.SampleTransform(_pts * ptsMul),
                 dir +
                 (new System.Diagnostics.StackTrace()).GetFrame(1)?.GetMethod()?.Name +
                 ".png");
@@ -75,16 +75,32 @@ namespace EventHandlerUT
         {
             _eventHandler.Modifiers.Add(new EventScaleY(t => -t * 2));
             PlotPoints(_eventHandler);
+        }      
+        
+        [Test]
+        public void TestBasicSize()
+        {
+            _eventHandler.Modifiers.Add(new EventSize(t => (-t * 4 + 1) / 2));
+            PlotPoints(_eventHandler);
+        }
+                
+        [Test]
+        public void TestBasicAlpha()
+        {
+            _eventHandler.Modifiers.Add(new EventAlpha(t => -t));
+            PlotPoints(_eventHandler);
         }
         
         [Test]
         public void TestHybrid()
         {
             _eventHandler.Modifiers.Add(new EventRotate(t => (float) (16 * Math.PI * t)));
+            _eventHandler.Modifiers.Add(new EventSize  (t => -t + 1));
+            _eventHandler.Modifiers.Add(new EventAlpha (t => (-t * 3 + 1) / 4));
             _eventHandler.Modifiers.Add(new EventScaleX(t => (float) Math.Sin(-t * 2 * Math.PI)));
             _eventHandler.Modifiers.Add(new EventScaleY(t => (float) Math.Cos(-t * 2 * Math.PI)));
 
-            PlotPoints(_eventHandler);
+            PlotPoints(_eventHandler, 10);
         }
         
         [TearDown]
