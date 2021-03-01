@@ -8,8 +8,4 @@
       <ProjectReference Include="..\EventHandler\EventHandler.csproj" />
     </ItemGroup>
 
-    <ItemGroup>
-      <Folder Include="Modifiers" />
-    </ItemGroup>
-
 </Project>
