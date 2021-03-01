@@ -3,49 +3,78 @@ using EventHandler.Modifiers;
 using EventHandler.Sprite;
 using EventHandler.Tools;
 using NUnit.Framework;
+using NUnit.Framework.Internal.Execution;
 
 namespace EventHandlerUT
 {
     public class Tests
     {
         private String dir = "tests/PatherUnitTest/";
-        private int _pts = 1000;
+        private int _pts = 100;
+        private SpriteEventHandler _eventHandler;
         [SetUp]
         public void Setup()
         {
+            _eventHandler = new SpriteEventHandler();
             System.IO.Directory.CreateDirectory(dir);
+        }
+
+        public void PlotPoints(SpriteEventHandler eventHandler)
+        {
+            EventPlotter.PlotPoints(eventHandler.SampleTransform(_pts),
+                dir +
+                (new System.Diagnostics.StackTrace()).GetFrame(1)?.GetMethod()?.Name +
+                ".png");
         }
 
         [Test]
         public void TestBasicLinear()
         {
-            var p = new SpriteEventHandler();
-            EventPlotter.PlotPoints(p.SampleEvents(_pts),
-                dir + "TestBasicLinear.png");
-            
-            Assert.Pass();
+            PlotPoints(_eventHandler);
         }
         
         [Test]
         public void TestBasicLinearRotation()
         {
-            var p = new SpriteEventHandler();
-            var rotate = new EventRotate((float) Math.PI * 3);
-            p.Modifiers.Add(rotate);
-            EventPlotter.PlotPoints(p.SampleTransform(_pts),
-                dir + "TestBasicLinearRotation.png");
-            Assert.Pass();
+            _eventHandler.Modifiers.Add(new EventRotate((float) Math.PI * 3));
+            PlotPoints(_eventHandler);
         }
         
         [Test]
         public void TestBasicRotation()
         {
-            var p = new SpriteEventHandler();
-            var rotate = new EventRotate(t => (float) (16 * Math.PI * t));
-            p.Modifiers.Add(rotate);
-            EventPlotter.PlotPoints(p.SampleTransform(_pts),
-                dir + "TestBasicRotation.png");
-            Assert.Pass();
+            _eventHandler.Modifiers.Add(new EventRotate(t => (float) (16 * Math.PI * t)));
+            PlotPoints(_eventHandler);
+        }
+        
+        [Test]
+        public void TestBasicLinearScaleX()
+        {
+            _eventHandler.Modifiers.Add(new EventRotate((float) Math.PI / 2));
+            _eventHandler.Modifiers.Add(new EventScaleX(0.5f));
+            PlotPoints(_eventHandler);
+        }
+        
+        [Test]
+        public void TestBasicLinearScaleY()
+        {
+            _eventHandler.Modifiers.Add(new EventScaleY(0.5f));
+            PlotPoints(_eventHandler);
+        }
+        
+        [Test]
+        public void TestBasicScaleX()
+        {
+            _eventHandler.Modifiers.Add(new EventRotate((float) Math.PI / 2));
+            _eventHandler.Modifiers.Add(new EventScaleX(t => -t * 2));
+            PlotPoints(_eventHandler);
+        }
+        
+        [Test]
+        public void TestBasicScaleY()
+        {
+            _eventHandler.Modifiers.Add(new EventScaleY(t => -t * 2));
+            PlotPoints(_eventHandler);
         }
         
         [TearDown]
