@@ -13,13 +13,17 @@ namespace EventHandler.Tools
         private static int _maxRgb = 255;
         private static float _plotPieSweep = 40f;
         
-        public static void PlotPoints(SpriteEventList events, String exportPath)
+        public static void PlotPoints(SpriteEventList events, String exportPath,
+            bool drawPath = true)
         {
             using (var bmp = new Bitmap(_plotSize, _plotSize))
             using (var gfx = Graphics.FromImage(bmp))
             using (var pen = new Pen(Color.White))
             {
                 gfx.Clear(Color.Black);
+                float prevX = -1f;
+                float prevY = -1f;
+                
                 foreach (var ev in events)
                 {
                     var evConv = ConvertEvent(ev);
@@ -32,6 +36,19 @@ namespace EventHandler.Tools
                         pen, evConv.X, evConv.Y,
                         evConv.S * _plotPieSize, evConv.S * _plotPieSize,
                         270f - _plotPieSweep / 2 - evConv.R, _plotPieSweep);
+                    
+                    if (drawPath && (prevX >= 0 || prevY >= 0))
+                        gfx.DrawLine(pen,
+                            prevX    + (float) _plotPieSize / 2,
+                            prevY    + (float) _plotPieSize / 2,
+                            evConv.X + (float) _plotPieSize / 2,
+                            evConv.Y + (float) _plotPieSize / 2);
+
+                    prevX = evConv.X;
+                    prevY = evConv.Y;
+
+                    // Console.Write(ev.ToString() + " | \t | ");
+                    // Console.WriteLine(evConv.ToString());
                 }
                 bmp.Save(exportPath);
             }
