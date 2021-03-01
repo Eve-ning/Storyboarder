@@ -23,6 +23,14 @@ namespace EventHandler.Tools
                 gfx.Clear(Color.Black);
                 float prevX = -1f;
                 float prevY = -1f;
+
+                // Draw Axis
+                gfx.DrawLine(new Pen(Color.Gray),
+                    0f, (float) _plotSize / 2,
+                    _plotSize, (float) _plotSize / 2);
+                gfx.DrawLine(new Pen(Color.Gray),
+                    (float) _plotSize / 2, 0f,
+                    (float) _plotSize / 2, _plotSize);
                 
                 foreach (var ev in events)
                 {
