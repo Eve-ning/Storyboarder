@@ -33,16 +33,18 @@ namespace EventHandler.Tools
                         _maxRgb - (int) evConv.T,
                         (int) _maxRgb / 2);
                     gfx.DrawPie(
-                        pen, evConv.X, evConv.Y,
+                        pen,
+                        evConv.X - (float) _plotPieSize / 2, 
+                        evConv.Y - (float) _plotPieSize / 2,
                         evConv.S * _plotPieSize, evConv.S * _plotPieSize,
                         270f - _plotPieSweep / 2 - evConv.R, _plotPieSweep);
                     
                     if (drawPath && (prevX >= 0 || prevY >= 0))
                         gfx.DrawLine(pen,
-                            prevX    + (float) _plotPieSize / 2,
-                            prevY    + (float) _plotPieSize / 2,
-                            evConv.X + (float) _plotPieSize / 2,
-                            evConv.Y + (float) _plotPieSize / 2);
+                            prevX   ,
+                            prevY   ,
+                            evConv.X,
+                            evConv.Y);
 
                     prevX = evConv.X;
                     prevY = evConv.Y;
