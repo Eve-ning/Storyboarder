@@ -23,7 +23,7 @@ namespace EventHandler.Modifiers
 
         public override SpriteEvent Modify(SpriteEvent ev)
         {
-            ev.X += scale(ev.T);
+            ev.X *= scale(ev.T);
             return ev;
         }
     }
