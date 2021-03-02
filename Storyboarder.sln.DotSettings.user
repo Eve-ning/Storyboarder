@@ -6,6 +6,7 @@
       &lt;TestId&gt;NUnit3x::7C937E11-0DE6-4647-A096-0ABBB5EF1941::net5.0::TimelineHandlerUT.Tests.Test1&lt;/TestId&gt;&#xD;
       &lt;TestId&gt;NUnit3x::7C937E11-0DE6-4647-A096-0ABBB5EF1941::net5.0::TimelineHandlerUT.Tests.TlSamplerException&lt;/TestId&gt;&#xD;
       &lt;TestId&gt;NUnit3x::7C937E11-0DE6-4647-A096-0ABBB5EF1941::net5.0::TimelineHandlerUT.Tests.TlSampler&lt;/TestId&gt;&#xD;
+      &lt;TestId&gt;NUnit3x::7C937E11-0DE6-4647-A096-0ABBB5EF1941::net5.0::TimelineHandlerUT.Tests.TestTlWorkflow&lt;/TestId&gt;&#xD;
     &lt;/TestAncestor&gt;&#xD;
   &lt;/Or&gt;&#xD;
 &lt;/SessionState&gt;</s:String>
