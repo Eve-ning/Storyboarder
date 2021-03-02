@@ -36,7 +36,26 @@ namespace EventHandler.Sprite
         public Vector<float> S { get { return data.Column(SCol); } set { data.SetColumn(SCol, value); } }       
         public Vector<float> A { get { return data.Column(ACol); } set { data.SetColumn(ACol, value); } }       
         public Vector<float> R { get { return data.Column(RCol); } set { data.SetColumn(RCol, value); } }       
-        public Vector<float> T { get { return data.Column(TCol); } set { data.SetColumn(TCol, value); } }       
+        public Vector<float> T { get { return data.Column(TCol); } set { data.SetColumn(TCol, value); } }
+
+        public int Length()
+        {
+            return data.RowCount;
+        }
+
+        public float TimeBegin()
+        {
+            return T.Min();
+        }
+        public float TimeEnd()
+        {
+            return T.Max();
+        }
+        public float TimeDuration()
+        {
+            return TimeEnd() - TimeBegin();
+        }
+        
         public IEnumerator<Vector<float>> GetEnumerator()
         {
             return data.EnumerateRows().GetEnumerator();
@@ -69,13 +88,6 @@ namespace EventHandler.Sprite
             get { return new SpriteEventModify(this); }
         }
 
-        public static SpriteEventList Join(List<SpriteEventList> lists)
-        {
-            Matrix<float>[,] ar = new Matrix<float>[lists.Count,1];
-            for (int i = 0; i < lists.Count; i++)
-                ar[i, 0] = lists[i].data;
 
-            return new SpriteEventList(Matrix<float>.Build.DenseOfMatrixArray(ar));
-        }
     }
 }
