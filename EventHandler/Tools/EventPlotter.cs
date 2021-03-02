@@ -22,7 +22,7 @@ namespace EventHandler.Tools
         /// <param name="exportPath"></param>
         /// <param name="drawPath"></param>
         public static void PlotPoints(SpriteEventList events, String exportPath,
-            bool drawPath = true)
+            bool drawPath = true, float tBegin = -1, float tEnd = 0)
         {
             using (var bmp = new Bitmap(_plotSize, _plotSize))
             using (var gfx = Graphics.FromImage(bmp))
@@ -42,14 +42,14 @@ namespace EventHandler.Tools
                 
                 foreach (var ev in events)
                 {
-                    var evConv = ConvertEvent(new SpriteEvent(ev));
+                    var evConv = ConvertEvent(new SpriteEvent(ev), tBegin, tEnd);
                     pen.Color = Color.FromArgb(
                         (int)evConv.A,
                         (int)evConv.T,
                         _maxRgb - (int) evConv.T,
                         (int) _maxRgb / 2);
 
-                    var newSize = Math.Max((float) _plotPieSize * evConv.S, 0.001f);
+                    var newSize = Math.Max(_plotPieSize * evConv.S, 0.001f);
                     gfx.DrawPie(
                         pen,
                         evConv.X - newSize / 2, 
@@ -87,7 +87,7 @@ namespace EventHandler.Tools
         /// </summary>
         /// <param name="ev"></param>
         /// <returns> </returns>
-        public static SpriteEvent ConvertEvent(SpriteEvent ev)
+        public static SpriteEvent ConvertEvent(SpriteEvent ev, float tBegin, float tEnd)
         {
             return new SpriteEvent(
                 // [-1, 1] -> [0, 2] -> [0, 1000]
@@ -106,7 +106,7 @@ namespace EventHandler.Tools
                 (float)(ev.R * 360f / 2 / Math.PI) ,
                 
                 // [-1, 0] -> [0, 1] -> [0, 255]
-                (ev.T + 1) * _maxRgb
+                (ev.T - tBegin) / (tEnd - tBegin) * _maxRgb
             );
         }
     }
