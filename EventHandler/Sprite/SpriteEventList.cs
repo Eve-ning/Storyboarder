@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using EventHandler.Modifiers;
 using MathNet.Numerics.LinearAlgebra;
 using MathNet.Numerics.LinearAlgebra.Single;
 
@@ -9,7 +10,7 @@ namespace EventHandler.Sprite
 {
     public class SpriteEventList
     {
-        public Matrix<float> events;
+        public Matrix<float> data;
         private int _numberOfColumns = 6; // XYSART
         private int _position;
         
@@ -20,31 +21,31 @@ namespace EventHandler.Sprite
         public const int RCol = 4;
         public const int TCol = 5;
         
-        public SpriteEventList(Matrix<float> events)
+        public SpriteEventList(Matrix<float> data)
         {
-            this.events = events;
+            this.data = data;
         }
 
         public SpriteEventList(List<SpriteEvent> events, int size)
         {
-            this.events = Matrix<float>.Build.Dense(size, 6);
+            this.data = Matrix<float>.Build.Dense(size, 6);
         }
 
-        public Vector<float> X { get { return events.Column(XCol); } set { events.SetColumn(XCol, value); } }       
-        public Vector<float> Y { get { return events.Column(YCol); } set { events.SetColumn(YCol, value); } }       
-        public Vector<float> S { get { return events.Column(SCol); } set { events.SetColumn(SCol, value); } }       
-        public Vector<float> A { get { return events.Column(ACol); } set { events.SetColumn(ACol, value); } }       
-        public Vector<float> R { get { return events.Column(RCol); } set { events.SetColumn(RCol, value); } }       
-        public Vector<float> T { get { return events.Column(TCol); } set { events.SetColumn(TCol, value); } }       
+        public Vector<float> X { get { return data.Column(XCol); } set { data.SetColumn(XCol, value); } }       
+        public Vector<float> Y { get { return data.Column(YCol); } set { data.SetColumn(YCol, value); } }       
+        public Vector<float> S { get { return data.Column(SCol); } set { data.SetColumn(SCol, value); } }       
+        public Vector<float> A { get { return data.Column(ACol); } set { data.SetColumn(ACol, value); } }       
+        public Vector<float> R { get { return data.Column(RCol); } set { data.SetColumn(RCol, value); } }       
+        public Vector<float> T { get { return data.Column(TCol); } set { data.SetColumn(TCol, value); } }       
         public IEnumerator<Vector<float>> GetEnumerator()
         {
-            return events.EnumerateRows().GetEnumerator();
+            return data.EnumerateRows().GetEnumerator();
         }
         //IEnumerator
         public bool MoveNext()
         {
             _position++;
-            return (_position < events.RowCount);
+            return (_position < data.RowCount);
         }
         //IEnumerable
         public void Reset()
@@ -54,13 +55,18 @@ namespace EventHandler.Sprite
         //IEnumerable
         public Vector<float> Current
         {
-            get { return events.Row(_position);}
+            get { return data.Row(_position);}
         }
 
         public SpriteEvent this[int index]
         {
-            get { return new (events.Row(index));  }
-            set { events.SetRow(index, value.data);  }
+            get { return new (data.Row(index));  }
+            set { data.SetRow(index, value.data);  }
+        }
+        
+        public SpriteEventModify Modify
+        {
+            get { return new SpriteEventModify(this); }
         }
     }
 }

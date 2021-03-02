@@ -25,8 +25,6 @@ namespace EventHandler.Sprite
         public float Length {
             get { return End - Begin; }
         }
-        
-        public List<EventModifier> Modifiers = new List<EventModifier>();
 
         public SpriteEventConstructor(float begin = -1f, float end = 0f)
         {
@@ -48,28 +46,9 @@ namespace EventHandler.Sprite
             var evDiff = Init - Final;
 
             for (var t = 0; t <= points; t++)
-                evList.events.SetRow(t, (Init - evDiff * t / points).data);
+                evList.data.SetRow(t, (Init - evDiff * t / points).data);
 
             return evList;
         }
-        
-        /// <summary>
-        /// Samples the Events and transforms according to the modifiers.
-        /// The Time will also be scaled to [begin, end].
-        /// </summary>
-        /// <param name="points"></param>
-        /// <param name="begin"></param>
-        /// <param name="end"></param>
-        /// <returns></returns>
-        public SpriteEventList SampleTransform(int points)
-        {
-            var evList = SampleEvents(points);
-            evList = Modifiers.Aggregate(evList,
-                (current, modifier) => modifier.ModifyAll(current));
-            
-            evList.T = evList.T * (Length) + End;
-            return evList;
-        }
-
     }
 }
