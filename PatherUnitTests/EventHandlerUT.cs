@@ -10,7 +10,7 @@ namespace EventHandlerUT
 {
     public class Tests
     {
-        private String dir = "tests/PatherUnitTest/";
+        private String dir = "tests/EventHandlerTests/";
         private int _pts = 100;
         private SpriteEventConstructor _eventConstructor;
         [SetUp]
@@ -138,9 +138,8 @@ namespace EventHandlerUT
             Assert.AreEqual(begin, eventList.T[0]);
             Assert.AreEqual(end, eventList.T[_pts]);
         }
-        
 
-        
+
         [Test]
         public void TestHybrid()
         {
