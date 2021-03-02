@@ -4,7 +4,6 @@ using EventHandler.Modifiers;
 using EventHandler.Sprite;
 using EventHandler.Tools;
 using NUnit.Framework;
-using NUnit.Framework.Internal.Execution;
 
 namespace EventHandlerUT
 {
@@ -16,6 +15,17 @@ namespace EventHandlerUT
         public void Setup()
         {
             System.IO.Directory.CreateDirectory(dir);
+        }
+        
+        public void PlotPoints(SpriteEventList eventList, float tBegin, float tEnd)
+        {
+            EventPlotter.PlotPoints(eventList,
+                dir +
+                (new System.Diagnostics.StackTrace()).GetFrame(1)?.GetMethod()?.Name +
+                ".png",
+                true,
+                tBegin, tEnd
+                );
         }
         
         [Test]
@@ -40,6 +50,29 @@ namespace EventHandlerUT
             
             Assert.AreEqual(-1f, samples.Y[0]);
             Assert.AreEqual(0, samples.Y[_pts]);
+        }
+        
+        [Test]
+        public void TestTlWorkflow()
+        {
+            var constructor = new SpriteEventConstructor();
+            var sampleOut = SpriteEventList.Join(new List<SpriteEventList>()
+            {
+                constructor
+                    .SampleEvents(_pts)
+                    .Modify
+                    .Rotate(t => (t + 1) * (float) Math.PI)
+                    .ScaleX(0.25f).ScaleY(0.25f)
+                    .TimeRange(2000, 3000).EventList,
+                
+                constructor
+                    .SampleEvents(_pts)
+                    .Modify
+                    .Rotate(t => (t + 1) * (float) Math.PI)
+                    .ScaleX(0.75f).ScaleY(0.75f)
+                    .TimeRange(1000, 2000).EventList
+            });
+            PlotPoints(sampleOut, 1000, 3000);
         }
         
         [TearDown]
