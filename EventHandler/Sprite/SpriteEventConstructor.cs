@@ -18,10 +18,11 @@ namespace EventHandler.Sprite
         // This vector is the vector 3 of X-Axis, Y-Axis, and the time.
         public SpriteEvent Init  = new SpriteEvent(0,1,1,1,0,-1);
         public SpriteEvent Final = new SpriteEvent(0,0,1,1,0,0);
-
-
-        public SpriteEventConstructor(float begin = -1f, float end = 0f)
-        {
+        
+                
+        public SpriteEventConstructor() {}
+        public SpriteEventConstructor(float begin, float end)
+        { 
             if (begin >= end) 
                 throw new ArgumentException($"Begin {begin}ms cannot be later than End {end}ms.");
 
