@@ -23,8 +23,7 @@ namespace EventHandlerUT
                 dir +
                 (new System.Diagnostics.StackTrace()).GetFrame(1)?.GetMethod()?.Name +
                 ".png",
-                true,
-                tBegin, tEnd
+                true
                 );
         }
         
@@ -52,28 +51,7 @@ namespace EventHandlerUT
             Assert.AreEqual(0, samples.Y[_pts]);
         }
         
-        [Test]
-        public void TestTlWorkflow()
-        {
-            var constructor = new SpriteEventConstructor();
-            var sampleOut = SpriteEventList.Join(new List<SpriteEventList>()
-            {
-                constructor
-                    .SampleEvents(_pts)
-                    .Modify
-                    .Rotate(t => (t + 1) * (float) Math.PI)
-                    .ScaleX(0.25f).ScaleY(0.25f)
-                    .TimeRange(2000, 3000).EventList,
-                
-                constructor
-                    .SampleEvents(_pts)
-                    .Modify
-                    .Rotate(t => (t + 1) * (float) Math.PI)
-                    .ScaleX(0.75f).ScaleY(0.75f)
-                    .TimeRange(1000, 2000).EventList
-            });
-            PlotPoints(sampleOut, 1000, 3000);
-        }
+        
         
         [TearDown]
         public void TearDown()
