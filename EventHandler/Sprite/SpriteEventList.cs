@@ -68,5 +68,14 @@ namespace EventHandler.Sprite
         {
             get { return new SpriteEventModify(this); }
         }
+
+        public static SpriteEventList Join(List<SpriteEventList> lists)
+        {
+            Matrix<float>[,] ar = new Matrix<float>[lists.Count,1];
+            for (int i = 0; i < lists.Count; i++)
+                ar[i, 0] = lists[i].data;
+
+            return new SpriteEventList(Matrix<float>.Build.DenseOfMatrixArray(ar));
+        }
     }
 }
