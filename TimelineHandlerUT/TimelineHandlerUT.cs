@@ -42,15 +42,15 @@ namespace TimelineHandlerUT
             Assert.AreEqual(begins[1],samples.T[_pts+1]);
             Assert.AreEqual(ends[1],  samples.T[_pts*2+1]);
             
-            Assert.AreEqual(0, samples.X[0]       , delta);
-            Assert.AreEqual(0, samples.X[_pts]    , delta);
-            Assert.AreEqual(0, samples.X[_pts+1]  , delta);
+            Assert.AreEqual(0, samples.X[0],        delta);
+            Assert.AreEqual(0, samples.X[_pts],     delta);
+            Assert.AreEqual(0, samples.X[_pts+1],   delta);
             Assert.AreEqual(0, samples.X[_pts*2+1], delta);
             
-            Assert.AreEqual(-1, samples.Y[0]      , delta);
-            Assert.AreEqual(0, samples.Y[_pts]    , delta);
-            Assert.AreEqual(0.5, samples.Y[_pts+1], delta);
-            Assert.AreEqual(0, samples.Y[_pts*2+1], delta);
+            Assert.AreEqual(-1,  samples.Y[0],        delta);
+            Assert.AreEqual(0,   samples.Y[_pts],     delta);
+            Assert.AreEqual(0.5, samples.Y[_pts+1],   delta);
+            Assert.AreEqual(0,   samples.Y[_pts*2+1], delta);
             
         }
 

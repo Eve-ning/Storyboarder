@@ -25,7 +25,7 @@ namespace TimelineHandler.Timeline
             Matrix<float>[,] matrix = new Matrix<float>[EventConstructors.Count,1];
             for (var i = 0; i < EventConstructors.Count; i++)
             {
-                matrix[i, 0] = EventConstructors[i].SampleTransform(pts).events;
+                matrix[i, 0] = EventConstructors[i].SampleTransform(pts).data;
             }
             var samples = Matrix<float>.Build.DenseOfMatrixArray(matrix);
             return new SpriteEventList(samples);

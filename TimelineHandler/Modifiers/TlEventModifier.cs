@@ -16,10 +16,10 @@ namespace TimelineHandler.Modifiers
 
         public SpriteEventList ModifyAll(SpriteEventList evList)
         {
-            for (int i = 0; i < evList.events.RowCount; i++)
+            for (int i = 0; i < evList.data.RowCount; i++)
             {
-                var ev = new SpriteEvent(evList.events.Row(i));
-                evList.events.SetRow(i, Modify(ev).data.ToArray());
+                var ev = new SpriteEvent(evList.data.Row(i));
+                evList.data.SetRow(i, Modify(ev).data.ToArray());
             }
             return evList;
         }
