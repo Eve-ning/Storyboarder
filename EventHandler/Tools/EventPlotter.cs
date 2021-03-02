@@ -3,10 +3,11 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Numerics;
 using EventHandler.Sprite;
+using ImageMagick.ImageOptimizers;
 
 namespace EventHandler.Tools
 {
-    public class EventPlotter
+    public static class EventPlotter
     {
         private static int _plotSize = 1000;
         private static int _plotPieSize = 20;
@@ -22,7 +23,7 @@ namespace EventHandler.Tools
         /// <param name="exportPath"></param>
         /// <param name="drawPath"></param>
         public static void PlotPoints(SpriteEventList events, String exportPath,
-            bool drawPath = true, float tBegin = -1, float tEnd = 0)
+            bool drawPath = true)
         {
             using (var bmp = new Bitmap(_plotSize, _plotSize))
             using (var gfx = Graphics.FromImage(bmp))
@@ -42,7 +43,8 @@ namespace EventHandler.Tools
                 
                 foreach (var ev in events)
                 {
-                    var evConv = ConvertEvent(new SpriteEvent(ev), tBegin, tEnd);
+                    var evConv = ConvertEvent(new SpriteEvent(ev),
+                        events.TimeBegin(), events.TimeEnd());
                     pen.Color = Color.FromArgb(
                         (int)evConv.A,
                         (int)evConv.T,
