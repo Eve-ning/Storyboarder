@@ -35,6 +35,9 @@ namespace EventHandler.Sprite {
         public SpriteEventModify AlignRotate(float radiansOffset = 0f) {
             return WithModifiers(new EventAlignRotate(radiansOffset));
         }
+        public SpriteEventModify AlignRotate(Funct radiansFunc) {
+            return WithModifiers(new EventAlignRotate(radiansFunc));
+        }
         
         public SpriteEventModify SetTimeRange
             (float toBegin, float toEnd, float fromBegin, float fromEnd) {

@@ -7,20 +7,24 @@ namespace EventHandler.Modifiers {
     /// Aligns all rotations to point towards the origin.
     /// </summary>
     public class EventAlignRotate : EventModifier {
-        public float RadiansOffset;
+        public Func<float, float> RadiansFunc;
 
-        public EventAlignRotate(float radiansOffset = 0f) {
-            RadiansOffset = radiansOffset;
+        public EventAlignRotate(float radians = 0f) {
+            RadiansFunc = f => radians;
+        }
+
+        public EventAlignRotate(Func<float, float> radiansFunc) {
+            RadiansFunc = radiansFunc;
         }
 
         public override SpriteEvent Modify(SpriteEvent ev) {
             try {
                 var div = ev.Y / ev.X;
-                ev.R = (float) (- Math.Atan(div) + Math.PI / 2) + RadiansOffset;
-                if (ev.X < 0) ev.R += (float) Math.PI;
+                ev.R = (float) (- Math.Atan(div) + Math.PI / 2) + RadiansFunc(ev.T);
+                if (ev.X < 0) ev.R -= (float) Math.PI;
             }
             catch (DivideByZeroException exc) {
-                ev.R = RadiansOffset;
+                ev.R = RadiansFunc(ev.T);
             }
             return ev;
         }
