@@ -13,60 +13,96 @@ namespace EventHandler.Sprite
             EventList = eventList;
         }
 
-        public SpriteEventModify Alpha(Func<float, float> funcAlpha)
+        public SpriteEventModify SetAlpha(Func<float, float> value)
         {
-            return WithModifiers(new EventAlpha(funcAlpha));
+            return WithModifiers(new EventSetAlpha(value));
         }
         
-        public SpriteEventModify Alpha(float constAlpha)
+        public SpriteEventModify SetAlpha(float value)
         {
-            return WithModifiers(new EventAlpha(constAlpha));
+            return WithModifiers(new EventSetAlpha(value));
         }
 
-        public SpriteEventModify Rotate(Func<float, float> funcRotate)
+        public SpriteEventModify AddRotate(Func<float, float> value)
         {
-            return WithModifiers(new EventRotate(funcRotate));
+            return WithModifiers(new EventAddRotate(value));
         }
         
-        public SpriteEventModify Rotate(float constRotate)
+        public SpriteEventModify AddRotate(float value)
         {
-            return WithModifiers(new EventRotate(constRotate));
+            return WithModifiers(new EventAddRotate(value));
         }
 
-        public SpriteEventModify ScaleX(Func<float, float> funcScaleX)
+        public SpriteEventModify ScaleX(Func<float, float> value)
         {
-            return WithModifiers(new EventScaleX(funcScaleX));
+            return WithModifiers(new EventScaleX(value));
         }
         
-        public SpriteEventModify ScaleX(float constScaleX)
+        public SpriteEventModify ScaleX(float value)
         {
-            return WithModifiers(new EventScaleX(constScaleX));
+            return WithModifiers(new EventScaleX(value));
         }
 
-        public SpriteEventModify ScaleY(Func<float, float> funcScaleY)
+        public SpriteEventModify AddX(Func<float, float> value)
         {
-            return WithModifiers(new EventScaleY(funcScaleY));
+            return WithModifiers(new EventAddX(value));
         }
         
-        public SpriteEventModify ScaleY(float constScaleY)
+        public SpriteEventModify AddX(float value)
         {
-            return WithModifiers(new EventScaleY(constScaleY));
+            return WithModifiers(new EventAddX(value));
         }
 
-        public SpriteEventModify Size(Func<float, float> funcSize)
+        public SpriteEventModify AddY(Func<float, float> value)
         {
-            return WithModifiers(new EventSize(funcSize));
+            return WithModifiers(new EventAddY(value));
         }
         
-        public SpriteEventModify Size(float constSize) 
+        public SpriteEventModify AddY(float value)
         {
-            return WithModifiers(new EventSize(constSize));
+            return WithModifiers(new EventAddY(value));
+        }
+        
+        public SpriteEventModify ScaleXY(Func<float, float> value)
+        {
+            return WithModifiers(new EventScaleXY(value));
+        }
+        
+        public SpriteEventModify ScaleXY(float value)
+        {
+            return WithModifiers(new EventScaleXY(value));
         }
 
-        public SpriteEventModify TimeRange(float toBegin, float toEnd,
-            float fromBegin = -1f, float fromEnd = 0f)
+        public SpriteEventModify ScaleY(Func<float, float> value)
         {
-            return WithModifiers(new EventTimeRange(toBegin, toEnd, fromBegin, fromEnd));
+            return WithModifiers(new EventScaleY(value));
+        }
+        
+        public SpriteEventModify ScaleY(float value)
+        {
+            return WithModifiers(new EventScaleY(value));
+        }
+
+        public SpriteEventModify SetSize(Func<float, float> value)
+        {
+            return WithModifiers(new EventSetSize(value));
+        }
+        
+        public SpriteEventModify SetSize(float value) 
+        {
+            return WithModifiers(new EventSetSize(value));
+        }
+
+        public SpriteEventModify SetTimeRange(float toBegin, float toEnd,
+            float fromBegin, float fromEnd)
+        {
+            return WithModifiers(new EventSetTimeRange(toBegin, toEnd, fromBegin, fromEnd));
+        }
+        
+        public SpriteEventModify SetTimeRange(float toBegin, float toEnd)
+        {
+            return WithModifiers(new EventSetTimeRange(toBegin, toEnd, 
+                EventList.TimeBegin(), EventList.TimeEnd()));
         }
 
         public SpriteEventModify WithModifiers(EventModifier modifier)
