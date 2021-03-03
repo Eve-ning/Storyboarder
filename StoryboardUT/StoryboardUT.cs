@@ -29,7 +29,6 @@ namespace StoryboardUT {
 
             List<Sprite> sprites = new List<Sprite>();
 
-            var r = new Random();
 
             foreach (var offset in Enumerable.Range(10,15).Select(x=>x * 200)) {
                 var sprite = new Sprite(
