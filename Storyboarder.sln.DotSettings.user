@@ -1,14 +1,23 @@
 ﻿<wpf:ResourceDictionary xml:space="preserve" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:s="clr-namespace:System;assembly=mscorlib" xmlns:ss="urn:shemas-jetbrains-com:settings-storage-xaml" xmlns:wpf="http://schemas.microsoft.com/winfx/2006/xaml/presentation">
 	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=a81f2675_002D60c5_002D4c3c_002Dbb98_002Dc888969ebc2d/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" IsActive="True" Name="Test1" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
-  &lt;Or&gt;&#xD;
-    &lt;Project Location="D:\Repositories\RiderProjects\Storyboarder\PatherUnitTests" Presentation="&amp;lt;EventHandlerUT&amp;gt;" /&gt;&#xD;
-    &lt;TestAncestor&gt;&#xD;
-      &lt;TestId&gt;NUnit3x::7C937E11-0DE6-4647-A096-0ABBB5EF1941::net5.0::TimelineHandlerUT.Tests.Test1&lt;/TestId&gt;&#xD;
-      &lt;TestId&gt;NUnit3x::7C937E11-0DE6-4647-A096-0ABBB5EF1941::net5.0::TimelineHandlerUT.Tests.TlSamplerException&lt;/TestId&gt;&#xD;
-      &lt;TestId&gt;NUnit3x::7C937E11-0DE6-4647-A096-0ABBB5EF1941::net5.0::TimelineHandlerUT.Tests.TlSampler&lt;/TestId&gt;&#xD;
-      &lt;TestId&gt;NUnit3x::7C937E11-0DE6-4647-A096-0ABBB5EF1941::net5.0::TimelineHandlerUT.Tests.TestTlWorkflow&lt;/TestId&gt;&#xD;
-    &lt;/TestAncestor&gt;&#xD;
-  &lt;/Or&gt;&#xD;
+  &lt;TestAncestor&gt;&#xD;
+    &lt;TestId&gt;NUnit3x::3B97184C-43A8-40BC-9313-90AE8D3E2ACC::net5.0::EventUT.BasicExamples&lt;/TestId&gt;&#xD;
+    &lt;TestId&gt;NUnit3x::3B97184C-43A8-40BC-9313-90AE8D3E2ACC::net5.0::EventUT.BasicTests&lt;/TestId&gt;&#xD;
+  &lt;/TestAncestor&gt;&#xD;
 &lt;/SessionState&gt;</s:String>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	<s:Boolean x:Key="/Default/UserDictionary/Words/=Pather/@EntryIndexedValue">True</s:Boolean></wpf:ResourceDictionary>
