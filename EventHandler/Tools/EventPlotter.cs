@@ -17,7 +17,7 @@ namespace EventHandler.Tools
         
         /// <summary>
         /// Plots the event.
-        /// The Event Time MUST span from -1 to 0.
+        /// Note that, by default, the direction of the sprite points down
         /// </summary>
         /// <param name="events"></param>
         /// <param name="exportPath"></param>
@@ -57,7 +57,7 @@ namespace EventHandler.Tools
                         evConv.X - newSize / 2, 
                         evConv.Y - newSize / 2,
                         newSize, newSize,
-                        _plotPieSweepStart - _plotPieSweep / 2 - evConv.R,
+                        _plotPieSweepStart - _plotPieSweep / 2 + evConv.R,
                         _plotPieSweep);
                     
                     if (drawPath && (prevX >= 0 || prevY >= 0))

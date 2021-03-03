@@ -15,7 +15,7 @@ namespace EventHandler.Sprite {
     public class SpriteEventConstructor {
         // This vector is the vector 3 of X-Axis, Y-Axis, and the time.
         public SpriteEvent Begin = new SpriteEvent(0, 1, 1, 1, 0, -1);
-        public SpriteEvent End = new SpriteEvent(0, 0, 1, 1, 0, 0);
+        public SpriteEvent End   = new SpriteEvent(0, 0, 1, 1, 0, 0);
 
         public SpriteEventConstructor() { }
 
