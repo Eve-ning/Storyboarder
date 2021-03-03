@@ -16,19 +16,30 @@ namespace EventHandler.Sprite
     public class SpriteEventConstructor
     {
         // This vector is the vector 3 of X-Axis, Y-Axis, and the time.
-        public SpriteEvent Init  = new SpriteEvent(0,1,1,1,0,-1);
-        public SpriteEvent Final = new SpriteEvent(0,0,1,1,0,0);
+        public SpriteEvent Begin = new SpriteEvent(0,1,1,1,0,-1);
+        public SpriteEvent End   = new SpriteEvent(0,0,1,1,0,0);
         
-                
         public SpriteEventConstructor() {}
-        public SpriteEventConstructor(float begin, float end)
-        { 
-            if (begin >= end) 
-                throw new ArgumentException($"Begin {begin}ms cannot be later than End {end}ms.");
+        public SpriteEventConstructor(SpriteEvent begin, SpriteEvent end)
+        {
+            if (Begin.T >= End.T) 
+                throw new ArgumentException(
+                    $"Begin {Begin.T}ms cannot be later than End {End.T}ms.");
 
-            Init.T = begin;
-            Final.T = end;
+            Begin = begin;
+            End = end;
         }
+
+        public SpriteEventConstructor(
+            float xBegin = 0,  float xEnd = 0,
+            float yBegin = 1,  float yEnd = 0,
+            float sBegin = 1,  float sEnd = 1,
+            float aBegin = 1,  float aEnd = 1,
+            float rBegin = 0,  float rEnd = 0,
+            float tBegin = -1, float tEnd = 0
+            ):
+            this(new SpriteEvent(xBegin, yBegin, sBegin, aBegin, rBegin, tBegin),
+                 new SpriteEvent(xEnd,   yEnd,   sEnd,   aEnd,   rEnd,   tEnd)) {}
 
         /// <summary>
         /// Samples the Basic Path to generate discrete path anchors
@@ -38,10 +49,10 @@ namespace EventHandler.Sprite
         public SpriteEventList SampleEvents(int points)
         {
             var evList = new SpriteEventList(new List<SpriteEvent>(), points + 1);
-            var evDiff = Init - Final;
+            var evDiff = Begin - End;
 
             for (var t = 0; t <= points; t++)
-                evList.data.SetRow(t, (Init - evDiff * t / points).data);
+                evList.data.SetRow(t, (Begin - evDiff * t / points).data);
 
             return evList;
         }
