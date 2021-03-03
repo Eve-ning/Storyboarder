@@ -6,22 +6,19 @@ using EventHandler.Tools;
 using NUnit.Framework;
 using NUnit.Framework.Internal.Execution;
 
-namespace EventHandlerUT
-{
-    public class Tests
-    {
+namespace EventHandlerUT {
+    public class Tests {
         private String dir = "tests/EventHandlerTests/";
         private int _pts = 100;
         private SpriteEventConstructor _eventConstructor;
+
         [SetUp]
-        public void Setup()
-        {
+        public void Setup() {
             _eventConstructor = new SpriteEventConstructor();
             System.IO.Directory.CreateDirectory(dir);
         }
 
-        public void PlotPoints(EventModifier modifier, int ptsMul = 1)
-        {
+        public void PlotPoints(EventModifier modifier, int ptsMul = 1) {
             EventPlotter.PlotPoints(
                 _eventConstructor
                     .SampleEvents(_pts * ptsMul)
@@ -32,8 +29,8 @@ namespace EventHandlerUT
                 (new System.Diagnostics.StackTrace()).GetFrame(1)?.GetMethod()?.Name +
                 ".png");
         }
-        public void PlotPoints(List<EventModifier> modifiers, int ptsMul = 1)
-        {
+
+        public void PlotPoints(List<EventModifier> modifiers, int ptsMul = 1) {
             EventPlotter.PlotPoints(
                 _eventConstructor
                     .SampleEvents(_pts * ptsMul)
@@ -44,9 +41,8 @@ namespace EventHandlerUT
                 (new System.Diagnostics.StackTrace()).GetFrame(1)?.GetMethod()?.Name +
                 ".png");
         }
-        
-        public void PlotPoints(SpriteEventList eventList)
-        {
+
+        public void PlotPoints(SpriteEventList eventList) {
             EventPlotter.PlotPoints(eventList,
                 dir +
                 (new System.Diagnostics.StackTrace()).GetFrame(1)?.GetMethod()?.Name +
@@ -54,85 +50,71 @@ namespace EventHandlerUT
         }
 
         [Test]
-        public void TestBasicLinear()
-        {
-            PlotPoints(new List<EventModifier>(){});
+        public void TestBasicLinear() {
+            PlotPoints(new List<EventModifier>() { });
         }
-        
+
         [Test]
-        public void TestBasicPipelining()
-        {
+        public void TestBasicPipelining() {
             PlotPoints(_eventConstructor
                 .SampleEvents(_pts)
                 .Modify.SetAlpha(t => -t).EventList);
         }
-        
+
         [Test]
-        public void TestBasicLinearRotation()
-        {
+        public void TestBasicLinearRotation() {
             PlotPoints(new EventAddRotate((float) Math.PI * 3));
         }
-        
+
         [Test]
-        public void TestBasicRotation()
-        {
+        public void TestBasicRotation() {
             PlotPoints(new EventAddRotate(t => (float) (16 * Math.PI * t)));
         }
-        
+
         [Test]
-        public void TestBasicLinearScaleX()
-        {
-            PlotPoints(new List<EventModifier>()
-            {
+        public void TestBasicLinearScaleX() {
+            PlotPoints(new List<EventModifier>() {
                 new EventAddRotate((float) Math.PI / 2),
                 new EventScaleX(0.5f)
             });
         }
-        
+
         [Test]
-        public void TestBasicLinearScaleY()
-        {
+        public void TestBasicLinearScaleY() {
             PlotPoints(new EventScaleY(0.5f));
         }
-        
-        [Test]
-        public void TestBasicScaleX()
-        {
 
-            PlotPoints(new List<EventModifier>()
-            {
+        [Test]
+        public void TestBasicScaleX() {
+            PlotPoints(new List<EventModifier>() {
                 new EventAddRotate((float) Math.PI / 2),
                 new EventScaleX(t => -t * 2)
             });
         }
-        
+
         [Test]
-        public void TestBasicScaleY()
-        {
+        public void TestBasicScaleY() {
             PlotPoints(new EventScaleY(t => -t * 2));
-        }      
-        
+        }
+
         [Test]
-        public void TestBasicSize()
-        {
+        public void TestBasicSize() {
             PlotPoints(new EventSetSize(t => (-t * 4 + 1) / 2));
         }
-                
+
         [Test]
-        public void TestBasicAlpha()
-        {
+        public void TestBasicAlpha() {
             PlotPoints(new EventSetAlpha(t => -t));
         }
 
         [Test]
-        public void TestBasicTimeRange()
-        {
+        public void TestBasicTimeRange() {
             var begin = 1000f;
             var end = 2000f;
             var eventList = _eventConstructor
                 .SampleEvents(_pts)
                 .Modify
-                .SetTimeRange(begin,end)
+                .SetTimeRange(begin, end)
                 .EventList;
 
             Assert.AreEqual(begin, eventList.T[0]);
@@ -141,10 +123,8 @@ namespace EventHandlerUT
 
 
         [Test]
-        public void TestHybrid()
-        {
-            PlotPoints(new List<EventModifier>()
-            {
+        public void TestHybrid() {
+            PlotPoints(new List<EventModifier>() {
                 new EventAddRotate(t => (float) (16 * Math.PI * t)),
                 new EventSetSize(t => -t + 1),
                 new EventSetAlpha(t => (-t * 3 + 1) / 4),
@@ -152,10 +132,8 @@ namespace EventHandlerUT
                 new EventScaleY(t => (float) Math.Cos(-t * 2 * Math.PI))
             });
         }
-        
+
         [TearDown]
-        public void TearDown()
-        {
-        }
+        public void TearDown() { }
     }
 }

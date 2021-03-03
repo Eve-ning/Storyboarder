@@ -2,19 +2,19 @@
 using EventHandler.Sprite;
 
 namespace EventHandler.Modifiers {
-    public class EventAddRotate : EventModifier {
+    public class EventSetRotate : EventModifier {
         public Func<float, float> Radians;
 
-        public EventAddRotate(float radians) {
+        public EventSetRotate(float radians) {
             Radians = f => radians;
         }
 
-        public EventAddRotate(Func<float, float> radiansFunc) {
+        public EventSetRotate(Func<float, float> radiansFunc) {
             Radians = radiansFunc;
         }
 
         public override SpriteEvent Modify(SpriteEvent ev) {
-            ev.R += Radians(ev.T);
+            ev.R = Radians(ev.T);
             return ev;
         }
     }
