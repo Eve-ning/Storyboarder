@@ -6,7 +6,7 @@ using NUnit.Framework;
 
 namespace EventUT {
     public class BasicExamples {
-        private String dir = "tests/EventExamples/";
+        private String dir = "tests/EventMakerExamples/";
         private int _pts = 100;
 
         [SetUp]

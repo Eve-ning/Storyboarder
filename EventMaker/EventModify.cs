@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Numerics;
 using EventMaker.Modifiers;
 
 namespace EventMaker {
@@ -37,6 +39,26 @@ namespace EventMaker {
         }
         public EventModify AlignRotate(Funct radiansFunc) {
             return WithModifiers(new EventAlignRotate(radiansFunc));
+        }
+        
+        public EventModify FitXY(float toLowerX, float toUpperX, float toLowerY, float toUpperY) {
+            var X = Events.X;
+            var Y = Events.Y;
+            
+            return WithModifiers(
+                new EventFitXY(X.Min(), X.Max(), toLowerX, toUpperX,
+                    Y.Min(), Y.Max(), toLowerY, toUpperY));
+        }
+        public EventModify FitXY(
+            float fromLowerX, float fromUpperX,
+            float fromLowerY, float fromUpperY,
+            float toLowerX, float toUpperX,
+            float toLowerY, float toUpperY) {
+            return WithModifiers(
+                new EventFitXY(fromLowerX, fromUpperX,
+                               fromLowerY, fromUpperY,
+                               toLowerX, toUpperX,
+                               toLowerY, toUpperY));
         }
         
         public EventModify SetTimeRange

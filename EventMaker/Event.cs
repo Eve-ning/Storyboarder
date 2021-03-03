@@ -1,13 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
-using MathNet.Numerics.LinearAlgebra;
+using System.Numerics;
 
 namespace EventMaker
 {
     public class Event
     {
         public const int Length = 6;
-        public Vector<float> data;
+        public MathNet.Numerics.LinearAlgebra.Vector<float> data;
         private int _position = -1;
         
         /// <param name="x">X Axis</param>
@@ -20,10 +20,10 @@ namespace EventMaker
                            float a = 1, float r = 0, float t = -1)
         {
             float[] ar = {x, y, s, a, r, t};
-            data = Vector<float>.Build.Dense(ar);
+            data = MathNet.Numerics.LinearAlgebra.Vector<float>.Build.Dense(ar);
         }
 
-        public Event(Vector<float> data)
+        public Event(MathNet.Numerics.LinearAlgebra.Vector<float> data)
         {
             this.data = data;
         }
@@ -78,6 +78,11 @@ namespace EventMaker
         public float A { get { return data[3]; } set { data[3] = value; } }
         public float R { get { return data[4]; } set { data[4] = value; } }
         public float T { get { return data[5]; } set { data[5] = value; } }
+        
+        public Vector2 XY {
+            get { return new Vector2(X, Y); }
+            set { X = value.X; Y = value.Y; }
+        }
         
         public void Rotate(float radians)
         {

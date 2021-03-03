@@ -6,7 +6,7 @@ using NUnit.Framework;
 
 namespace EventUT {
     public class BasicTests {
-        private String dir = "tests/EventUT/";
+        private String dir = "tests/EventMakerUT/";
         private int _pts = 100;
         private EventList Events { get; set; }
         private EventConstructor EventConstructor { get; set; }
@@ -14,7 +14,7 @@ namespace EventUT {
         [SetUp]
         public void Setup() {
             EventConstructor = new EventConstructor();
-            EventConstructor.SampleEvents(_pts);
+            Events = EventConstructor.SampleEvents(_pts);
             System.IO.Directory.CreateDirectory(dir);
         }
 
@@ -65,18 +65,18 @@ namespace EventUT {
 
         [Test]
         public void TestBasicLinearRotation() {
-            PlotPoints(new EventAddRotate((float) Math.PI * 3));
+            PlotPoints(new EventAddRotateXY((float) Math.PI * 3));
         }
 
         [Test]
         public void TestBasicRotation() {
-            PlotPoints(new EventAddRotate(t => (float) (16 * Math.PI * t)));
+            PlotPoints(new EventAddRotateXY(t => (float) (16 * Math.PI * t)));
         }
 
         [Test]
         public void TestBasicLinearScaleX() {
             PlotPoints(new List<EventModifier>() {
-                new EventAddRotate((float) Math.PI / 2),
+                new EventAddRotateXY((float) Math.PI / 2),
                 new EventScaleX(0.5f)
             });
         }
@@ -89,7 +89,7 @@ namespace EventUT {
         [Test]
         public void TestBasicScaleX() {
             PlotPoints(new List<EventModifier>() {
-                new EventAddRotate((float) Math.PI / 2),
+                new EventAddRotateXY((float) Math.PI / 2),
                 new EventScaleX(t => -t * 2)
             });
         }
@@ -110,6 +110,14 @@ namespace EventUT {
         }
 
         [Test]
+        public void TestBasicFitXY() {
+            PlotPoints(Events.Modify
+                .FitXY(
+                -1, 1, -0f, 1f,
+                -1, 1, 1, 0).Events);
+        }
+
+        [Test]
         public void TestBasicTimeRange() {
             var begin = 1000f;
             var end = 2000f;
@@ -127,7 +135,7 @@ namespace EventUT {
         [Test]
         public void TestHybrid() {
             PlotPoints(new List<EventModifier>() {
-                new EventAddRotate(t => (float) (16 * Math.PI * t)),
+                new EventAddRotateXY(t => (float) (16 * Math.PI * t)),
                 new EventSetSize(t => -t + 1),
                 new EventSetAlpha(t => (-t * 3 + 1) / 4),
                 new EventScaleX(t => (float) Math.Sin(-t * 2 * Math.PI)),

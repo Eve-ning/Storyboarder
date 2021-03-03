@@ -15,11 +15,11 @@ namespace EventMaker.Modifiers {
             RadiansFunc = radiansFunc;
         }
 
-        public override global::EventMaker.Event Modify(global::EventMaker.Event ev) {
+        public override Event Modify(Event ev) {
             try {
                 var div = ev.Y / ev.X;
-                ev.R = (float) (- Math.Atan(div) + Math.PI / 2) + RadiansFunc(ev.T);
-                if (ev.X < 0) ev.R -= (float) Math.PI;
+                ev.R += (float) (- Math.Atan(div) + Math.PI / 2) + RadiansFunc(ev.T);
+                if (ev.X < 0) ev.R += (float) Math.PI;
             }
             catch (DivideByZeroException exc) {
                 ev.R = RadiansFunc(ev.T);

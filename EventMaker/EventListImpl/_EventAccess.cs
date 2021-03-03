@@ -58,7 +58,7 @@ namespace EventMaker.EventListImpl {
             return TimeEnd() - TimeBegin();
         }
 
-        public global::EventMaker.Event this[int index] {
+        public Event this[int index] {
             get => new(Events.Row(index));
             set => Events.SetRow(index, value.data);
         }

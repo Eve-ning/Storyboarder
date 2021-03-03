@@ -33,7 +33,7 @@ namespace EventMaker.Modifiers {
         }
 
 
-        public override global::EventMaker.Event Modify(global::EventMaker.Event ev) {
+        public override Event Modify(Event ev) {
             ev.T = (ev.T - FromEnd) / (FromEnd - FromBegin) * (ToEnd - ToBegin) + ToEnd;
             return ev;
         }

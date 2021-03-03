@@ -43,7 +43,7 @@ namespace EventMaker
                 
                 foreach (var ev in Events)
                 {
-                    var evConv = ConvertEvent(new global::EventMaker.Event(ev),
+                    var evConv = ConvertEvent(new Event(ev),
                         Events.TimeBegin(), Events.TimeEnd());
                     pen.Color = Color.FromArgb(
                         (int)evConv.A,
@@ -70,7 +70,7 @@ namespace EventMaker
                     prevX = evConv.X;
                     prevY = evConv.Y;
 
-                    Console.Write(new global::EventMaker.Event(ev).ToString() + " | \t | ");
+                    Console.Write(new Event(ev).ToString() + " | \t | ");
                     Console.WriteLine(evConv.ToString());
                 }
                 bmp.Save(exportPath);
@@ -87,11 +87,10 @@ namespace EventMaker
         /// Returns XYT in the expected range of
         /// [0, 1000], [1000, 0], [0, 255] 
         /// </summary>
-        /// <param name="ev"></param>
         /// <returns> </returns>
-        public static global::EventMaker.Event ConvertEvent(global::EventMaker.Event ev, float tBegin, float tEnd)
+        public static Event ConvertEvent(Event ev, float tBegin, float tEnd)
         {
-            return new global::EventMaker.Event(
+            return new Event(
                 // [-1, 1] -> [0, 2] -> [0, 1000]
                 (ev.X + 1) * _plotSize / 2,
                 

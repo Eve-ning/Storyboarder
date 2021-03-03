@@ -12,7 +12,7 @@ namespace EventMaker.Modifiers {
             Func = func;
         }
 
-        public override global::EventMaker.Event Modify(global::EventMaker.Event ev) {
+        public override Event Modify(Event ev) {
             ev.S = Func(ev.T);
             return ev;
         }

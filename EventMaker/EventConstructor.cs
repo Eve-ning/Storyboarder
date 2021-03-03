@@ -12,12 +12,12 @@ namespace EventMaker {
      */
     public class EventConstructor {
         // This vector is the vector 3 of X-Axis, Y-Axis, and the time.
-        public EventMaker.Event Begin = new EventMaker.Event(0, 1, 1, 1, 0, -1);
-        public EventMaker.Event End   = new EventMaker.Event(0, 0, 1, 1, 0, 0);
+        public Event Begin = new Event(0, 1, 1, 1, 0, -1);
+        public Event End   = new Event(0, 0, 1, 1, 0, 0);
 
         public EventConstructor() { }
 
-        public EventConstructor(EventMaker.Event begin, EventMaker.Event end) {
+        public EventConstructor(Event begin, Event end) {
             if (Begin.T >= End.T)
                 throw new ArgumentException(
                     $"Begin {Begin.T}ms cannot be later than End {End.T}ms.");
@@ -34,8 +34,8 @@ namespace EventMaker {
             float rBegin = 0, float rEnd = 0,
             float tBegin = -1, float tEnd = 0
         ) :
-            this(new EventMaker.Event(xBegin, yBegin, sBegin, aBegin, rBegin, tBegin),
-                new EventMaker.Event(xEnd, yEnd, sEnd, aEnd, rEnd, tEnd)) { }
+            this(new Event(xBegin, yBegin, sBegin, aBegin, rBegin, tBegin),
+                new Event(xEnd, yEnd, sEnd, aEnd, rEnd, tEnd)) { }
 
         /// <summary>
         /// Samples the Basic Path to generate discrete path anchors
@@ -43,7 +43,7 @@ namespace EventMaker {
         /// <param name="points">The number of points to generate</param>
         /// <returns>A List of Sampled Vector3 points</returns>
         public EventList SampleEvents(int points) {
-            var evList = new EventList(new List<EventMaker.Event>(), points + 1);
+            var evList = new EventList(new List<Event>(), points + 1);
             var evDiff = Begin - End;
 
             for (var t = 0; t <= points; t++)

@@ -6,7 +6,7 @@ using NUnit.Framework;
 
 namespace EventUT {
     public class JoinTests {
-        private String dir = "tests/EventUT/";
+        private String dir = "tests/EventMakerUT/";
         private int _pts = 100;
         private EventList Events { get; set; }
         private EventConstructor EventConstructor { get; set; }

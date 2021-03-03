@@ -3,6 +3,9 @@
   &lt;TestAncestor&gt;&#xD;
     &lt;TestId&gt;NUnit3x::3B97184C-43A8-40BC-9313-90AE8D3E2ACC::net5.0::EventUT.BasicExamples&lt;/TestId&gt;&#xD;
     &lt;TestId&gt;NUnit3x::3B97184C-43A8-40BC-9313-90AE8D3E2ACC::net5.0::EventUT.BasicTests&lt;/TestId&gt;&#xD;
+    &lt;TestId&gt;NUnit3x::03B3D27E-6004-42F4-A2D4-D59C26806BF2::net5.0::SpriteUT.Tests.TestTlWorkflowCircle&lt;/TestId&gt;&#xD;
+    &lt;TestId&gt;NUnit3x::00C683D5-97A8-48B3-B6B7-6FAE3B6DC18C::net5.0::StoryboardUT.Tests.TestExport&lt;/TestId&gt;&#xD;
+    &lt;TestId&gt;NUnit3x::00C683D5-97A8-48B3-B6B7-6FAE3B6DC18C::net5.0::StoryboardUT.Tests&lt;/TestId&gt;&#xD;
   &lt;/TestAncestor&gt;&#xD;
 &lt;/SessionState&gt;</s:String>
 	

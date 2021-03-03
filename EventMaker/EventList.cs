@@ -11,7 +11,7 @@ namespace EventMaker {
             Events = events;
         }
 
-        public EventList(List<EventMaker.Event> events, int size) {
+        public EventList(List<Event> events, int size) {
             Events = Matrix<float>.Build.Dense(size, 6);
         }
         
@@ -35,7 +35,7 @@ namespace EventMaker {
                     Matrix<float>.Build.DenseOfRows(
                         eventList.Events
                             .EnumerateRows()
-                            .OrderBy(e => e[_EventAccess.TCol]))
+                            .OrderBy(e => e[TCol]))
                 );
         }
         

@@ -12,7 +12,7 @@ namespace EventMaker.Modifiers {
             Radians = radiansFunc;
         }
 
-        public override global::EventMaker.Event Modify(global::EventMaker.Event ev) {
+        public override Event Modify(Event ev) {
             ev.Rotate(Radians(ev.T));
             return ev;
         }
