@@ -33,8 +33,8 @@ namespace EventHandlerUT
             var constructor = new SpriteEventConstructor();
             var samples = constructor.SampleEvents(_pts);
             samples.Modify
-                .Rotate(0.5f * (float) Math.PI)
-                .Rotate(0.5f * (float) Math.PI);
+                .AddRotate(0.5f * (float) Math.PI)
+                .AddRotate(0.5f * (float) Math.PI);
             Assert.AreEqual(-1f, samples.Y[0]);
             Assert.AreEqual(0, samples.Y[_pts]);
         }
@@ -44,7 +44,7 @@ namespace EventHandlerUT
         {
             var constructor = new SpriteEventConstructor();
             var samples = constructor.SampleEvents(_pts);
-            var rotate = new EventRotate(0.5f * (float) Math.PI);
+            var rotate = new EventAddRotate(0.5f * (float) Math.PI);
             samples.Modify.WithModifiers(new List<EventModifier>() {rotate, rotate});
             
             Assert.AreEqual(-1f, samples.Y[0]);
