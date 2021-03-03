@@ -84,7 +84,7 @@ namespace EventHandler.Sprite
             float x = X; // We have a separate variable as X dynamically changes Y
             X = (float) (X * Math.Cos(radians) - Y * Math.Sin(radians));
             Y = (float) (x * Math.Sin(radians) + Y * Math.Cos(radians));
-            R = radians;
+            R += radians;
         }
 
         public override string ToString()
