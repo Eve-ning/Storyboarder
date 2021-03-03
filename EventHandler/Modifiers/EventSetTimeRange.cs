@@ -4,7 +4,7 @@ using IronPython.Modules;
 
 namespace EventHandler.Modifiers
 {
-    public class EventTimeRange : EventModifier
+    public class EventSetTimeRange : EventModifier
     {
         public float FromBegin;
         public float FromEnd;
@@ -20,7 +20,7 @@ namespace EventHandler.Modifiers
         /// <param name="fromBegin">The Position to move begin from, default -1</param>
         /// <param name="fromEnd">The Position to move end from, default 0</param>
         /// <exception cref="ArgumentException">Throws when begin >= end</exception>
-        public EventTimeRange(float toBegin, float toEnd,
+        public EventSetTimeRange(float toBegin, float toEnd,
             float fromBegin = -1f, float fromEnd = 0f)
         {
             if (toBegin >= toEnd)
@@ -36,6 +36,7 @@ namespace EventHandler.Modifiers
             ToBegin   = toBegin;
             ToEnd     = toEnd;
         }
+        
 
         public override SpriteEvent Modify(SpriteEvent ev)
         {

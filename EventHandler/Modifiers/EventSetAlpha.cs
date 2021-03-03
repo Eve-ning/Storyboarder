@@ -3,22 +3,22 @@ using EventHandler.Sprite;
 
 namespace EventHandler.Modifiers
 {
-    public class EventScaleY : EventModifier
+    public class EventSetAlpha : EventModifier
     {
         public Func<float, float> Func;
 
-        public EventScaleY(float value)
+        public EventSetAlpha(float value)
         {
             Func = f => value;
         }
-        public EventScaleY(Func<float, float> func)
+        public EventSetAlpha(Func<float, float> func)
         {
             Func = func;
         }
 
         public override SpriteEvent Modify(SpriteEvent ev)
         {
-            ev.Y *= Func(ev.T);
+            ev.A = Func(ev.T);
             return ev;
         }
     }

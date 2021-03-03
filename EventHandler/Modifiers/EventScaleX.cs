@@ -5,25 +5,20 @@ namespace EventHandler.Modifiers
 {
     public class EventScaleX : EventModifier
     {
-        public Func<float, float> scale;
+        public Func<float, float> Func;
 
-        public EventScaleX(float scaleConst)
+        public EventScaleX(float value)
         {
-            scale = f => scaleConst;
+            Func = f => value;
         }
-
-        /// <summary>
-        ///     Creates a Scale X Modifier
-        /// </summary>
-        /// <param name="scaleFunc">Scale(Time) Function</param>
-        public EventScaleX(Func<float, float> scaleFunc)
+        public EventScaleX(Func<float, float> func)
         {
-            scale = scaleFunc;
+            Func = func;
         }
 
         public override SpriteEvent Modify(SpriteEvent ev)
         {
-            ev.X *= scale(ev.T);
+            ev.X *= Func(ev.T);
             return ev;
         }
     }
