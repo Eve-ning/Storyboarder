@@ -1,20 +1,20 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Drawing;
-using System.Numerics;
-using EventHandler.Sprite;
-using ImageMagick.ImageOptimizers;
 
-namespace EventHandler.Tools
+namespace EventHandler.Event
 {
-    public static class EventPlotter
-    {
+    public class EventPlot {
+        public EventList Events { get; set; }
         private static int _plotSize = 1000;
         private static int _plotPieSize = 20;
         private static float _plotPieSweepStart = 270f;
         private static int _maxRgb = 255;
         private static float _plotPieSweep = 40f;
-        
+
+        public EventPlot(EventList events) {
+            Events = events;
+        }
+
         /// <summary>
         /// Plots the event.
         /// Note that, by default, the direction of the sprite points down
@@ -22,7 +22,7 @@ namespace EventHandler.Tools
         /// <param name="events"></param>
         /// <param name="exportPath"></param>
         /// <param name="drawPath"></param>
-        public static void PlotPoints(SpriteEventList events, String exportPath,
+        public void PlotPoints(String exportPath,
             bool drawPath = true)
         {
             using (var bmp = new Bitmap(_plotSize, _plotSize))
@@ -41,10 +41,10 @@ namespace EventHandler.Tools
                     (float) _plotSize / 2, 0f,
                     (float) _plotSize / 2, _plotSize);
                 
-                foreach (var ev in events)
+                foreach (var ev in Events)
                 {
-                    var evConv = ConvertEvent(new SpriteEvent(ev),
-                        events.TimeBegin(), events.TimeEnd());
+                    var evConv = ConvertEvent(new Event(ev),
+                        Events.TimeBegin(), Events.TimeEnd());
                     pen.Color = Color.FromArgb(
                         (int)evConv.A,
                         (int)evConv.T,
@@ -70,7 +70,7 @@ namespace EventHandler.Tools
                     prevX = evConv.X;
                     prevY = evConv.Y;
 
-                    Console.Write(new SpriteEvent(ev).ToString() + " | \t | ");
+                    Console.Write(new Event(ev).ToString() + " | \t | ");
                     Console.WriteLine(evConv.ToString());
                 }
                 bmp.Save(exportPath);
@@ -89,9 +89,9 @@ namespace EventHandler.Tools
         /// </summary>
         /// <param name="ev"></param>
         /// <returns> </returns>
-        public static SpriteEvent ConvertEvent(SpriteEvent ev, float tBegin, float tEnd)
+        public static Event ConvertEvent(Event ev, float tBegin, float tEnd)
         {
-            return new SpriteEvent(
+            return new Event(
                 // [-1, 1] -> [0, 2] -> [0, 1000]
                 (ev.X + 1) * _plotSize / 2,
                 

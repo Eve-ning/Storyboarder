@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Numerics;
-using EventHandler.Sprite;
+using EventHandler.Event;
 
 namespace TimelineHandler.Modifiers
 {
@@ -12,14 +12,14 @@ namespace TimelineHandler.Modifiers
     /// </summary>
     public abstract class TlEventModifier
     {
-        public abstract SpriteEvent Modify(SpriteEvent ev);
+        public abstract Event Modify(Event ev);
 
-        public SpriteEventList ModifyAll(SpriteEventList evList)
+        public EventList ModifyAll(EventList evList)
         {
-            for (int i = 0; i < evList.data.RowCount; i++)
+            for (int i = 0; i < evList.Events.RowCount; i++)
             {
-                var ev = new SpriteEvent(evList.data.Row(i));
-                evList.data.SetRow(i, Modify(ev).data.ToArray());
+                var ev = new Event(evList.Events.Row(i));
+                evList.Events.SetRow(i, Modify(ev).data.ToArray());
             }
             return evList;
         }

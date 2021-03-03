@@ -1,49 +1,51 @@
 using System;
 using System.Collections.Generic;
+using EventHandler.Event;
 using EventHandler.Modifiers;
-using EventHandler.Sprite;
-using EventHandler.Tools;
 using NUnit.Framework;
-using NUnit.Framework.Internal.Execution;
 
 namespace EventHandlerUT {
-    public class Tests {
+    public class BasicTests {
         private String dir = "tests/EventHandlerTests/";
         private int _pts = 100;
-        private SpriteEventConstructor _eventConstructor;
+        private EventList Events { get; set; }
+        private EventConstructor EventConstructor { get; set; }
 
         [SetUp]
         public void Setup() {
-            _eventConstructor = new SpriteEventConstructor();
+            EventConstructor = new EventConstructor();
+            EventConstructor.SampleEvents(_pts);
             System.IO.Directory.CreateDirectory(dir);
         }
 
         public void PlotPoints(EventModifier modifier, int ptsMul = 1) {
-            EventPlotter.PlotPoints(
-                _eventConstructor
-                    .SampleEvents(_pts * ptsMul)
-                    .Modify
-                    .WithModifiers(modifier)
-                    .EventList,
-                dir +
-                (new System.Diagnostics.StackTrace()).GetFrame(1)?.GetMethod()?.Name +
-                ".png");
+            EventConstructor
+                .SampleEvents(_pts * ptsMul)
+                .Modify
+                .WithModifiers(modifier)
+                .Events
+                .Plot
+                .PlotPoints(
+                    dir +
+                    new System.Diagnostics.StackTrace().GetFrame(1)?.GetMethod()?.Name +
+                    ".png");
         }
 
         public void PlotPoints(List<EventModifier> modifiers, int ptsMul = 1) {
-            EventPlotter.PlotPoints(
-                _eventConstructor
-                    .SampleEvents(_pts * ptsMul)
-                    .Modify
-                    .WithModifiers(modifiers)
-                    .EventList,
-                dir +
-                (new System.Diagnostics.StackTrace()).GetFrame(1)?.GetMethod()?.Name +
-                ".png");
+            EventConstructor
+                .SampleEvents(_pts * ptsMul)
+                .Modify
+                .WithModifiers(modifiers)
+                .Events
+                .Plot
+                .PlotPoints(
+                    dir +
+                    new System.Diagnostics.StackTrace().GetFrame(1)?.GetMethod()?.Name +
+                    ".png");
         }
 
-        public void PlotPoints(SpriteEventList eventList) {
-            EventPlotter.PlotPoints(eventList,
+        public void PlotPoints(EventList eventList) {
+            eventList.Plot.PlotPoints(
                 dir +
                 (new System.Diagnostics.StackTrace()).GetFrame(1)?.GetMethod()?.Name +
                 ".png");
@@ -56,9 +58,9 @@ namespace EventHandlerUT {
 
         [Test]
         public void TestBasicPipelining() {
-            PlotPoints(_eventConstructor
+            PlotPoints(EventConstructor
                 .SampleEvents(_pts)
-                .Modify.SetAlpha(t => -t).EventList);
+                .Modify.SetAlpha(t => -t).Events);
         }
 
         [Test]
@@ -111,11 +113,11 @@ namespace EventHandlerUT {
         public void TestBasicTimeRange() {
             var begin = 1000f;
             var end = 2000f;
-            var eventList = _eventConstructor
+            var eventList = EventConstructor
                 .SampleEvents(_pts)
                 .Modify
                 .SetTimeRange(begin, end)
-                .EventList;
+                .Events;
 
             Assert.AreEqual(begin, eventList.T[0]);
             Assert.AreEqual(end, eventList.T[_pts]);

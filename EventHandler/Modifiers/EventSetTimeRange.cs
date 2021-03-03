@@ -1,5 +1,5 @@
 ﻿using System;
-using EventHandler.Sprite;
+using EventHandler.Event;
 
 namespace EventHandler.Modifiers {
     public class EventSetTimeRange : EventModifier {
@@ -34,7 +34,7 @@ namespace EventHandler.Modifiers {
         }
 
 
-        public override SpriteEvent Modify(SpriteEvent ev) {
+        public override Event.Event Modify(Event.Event ev) {
             ev.T = (ev.T - FromEnd) / (FromEnd - FromBegin) * (ToEnd - ToBegin) + ToEnd;
             return ev;
         }

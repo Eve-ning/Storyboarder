@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using MathNet.Numerics.LinearAlgebra;
 
-namespace EventHandler.Sprite
+namespace EventHandler.Event
 {
-    public class SpriteEvent
+    public class Event
     {
         public const int Length = 6;
         public Vector<float> data;
@@ -16,48 +16,48 @@ namespace EventHandler.Sprite
         /// <param name="a">Alpha</param>
         /// <param name="r">Rotate</param>
         /// <param name="t">Time</param>
-        public SpriteEvent(float x = 0, float y = 1, float s = 1,
+        public Event(float x = 0, float y = 1, float s = 1,
                            float a = 1, float r = 0, float t = -1)
         {
             float[] ar = {x, y, s, a, r, t};
             data = Vector<float>.Build.Dense(ar);
         }
 
-        public SpriteEvent(Vector<float> data)
+        public Event(Vector<float> data)
         {
             this.data = data;
         }
 
-        public static SpriteEvent operator -(SpriteEvent a, SpriteEvent b)
+        public static Event operator -(Event a, Event b)
         {
             return new (a.data - b.data);
         }
-        public static SpriteEvent operator +(SpriteEvent a, SpriteEvent b)
+        public static Event operator +(Event a, Event b)
         {
             return new (a.data + b.data);
         }
-        public static SpriteEvent operator /(SpriteEvent a, SpriteEvent b)
+        public static Event operator /(Event a, Event b)
         {
             return new (a.data / b.data);
         }
-        public static SpriteEvent operator *(SpriteEvent a, SpriteEvent b)
+        public static Event operator *(Event a, Event b)
         {
             return new (a.data * b.data);
         }
 
-        public static SpriteEvent operator -(SpriteEvent a, dynamic b)
+        public static Event operator -(Event a, dynamic b)
         {
             return new (a.data - b);
         }
-        public static SpriteEvent operator +(SpriteEvent a, dynamic b)
+        public static Event operator +(Event a, dynamic b)
         {
             return new (a.data + b);
         }
-        public static SpriteEvent operator /(SpriteEvent a, dynamic b)
+        public static Event operator /(Event a, dynamic b)
         {
             return new (a.data / b);
         }
-        public static SpriteEvent operator *(SpriteEvent a, dynamic b)
+        public static Event operator *(Event a, dynamic b)
         {
             return new (a.data * b);
         }

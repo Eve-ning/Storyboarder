@@ -1,21 +1,19 @@
 using System;
 using System.Collections.Generic;
 using EventHandler.Modifiers;
-using EventHandler.Sprite;
+using EventHandler.Event;
 using EventHandler.Tools;
 using NUnit.Framework;
 using TimelineHandler.Timeline;
 
 namespace TimelineHandlerUT {
-    using EvCon = SpriteEventConstructor;
-
     public class Tests {
         private String dir = "tests/TlEventHandlerTests/";
         private int _pts = 100;
         private TlSpriteEventList _tlCon;
         private double delta = 0.0001f;
 
-        public void PlotPoints(SpriteEventList eventList) {
+        public void PlotPoints(EventList eventList) {
             EventPlotter.PlotPoints(eventList,
                 dir +
                 (new System.Diagnostics.StackTrace()).GetFrame(1)?.GetMethod()?.Name +
@@ -29,15 +27,15 @@ namespace TimelineHandlerUT {
 
         [Test]
         public void TestTlWorkflowCircle() {
-            var constructor = new SpriteEventConstructor(yBegin: 0, tBegin:0, tEnd:2 * (float)Math.PI);
-            var sampleOut = TlSpriteEventList.Join(new List<SpriteEventList>() {
+            var constructor = new EventConstructor(yBegin: 0, tBegin:0, tEnd:2 * (float)Math.PI);
+            var sampleOut = TlSpriteEventList.Join(new List<EventList>() {
                 constructor.SampleEvents(_pts)
                     .Modify
                     .SetX(t => (float) Math.Cos(t))
                     .SetY(t => (float) Math.Sin(t))
                     .SetTimeRange(1000, 2000)
                     .AlignRotate()
-                    .EventList,
+                    .Events,
             }, false);
             PlotPoints(sampleOut);
             Assert.AreEqual((float)   Math.PI / 2,sampleOut.R[0],            delta);

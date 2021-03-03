@@ -8,4 +8,8 @@
       <ProjectReference Include="..\EventHandler\EventHandler.csproj" />
     </ItemGroup>
 
+    <ItemGroup>
+      <PackageReference Include="OsuParsers" Version="1.7.0" />
+    </ItemGroup>
+
 </Project>

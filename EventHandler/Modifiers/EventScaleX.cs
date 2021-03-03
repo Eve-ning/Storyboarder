@@ -1,5 +1,5 @@
 ﻿using System;
-using EventHandler.Sprite;
+using EventHandler.Event;
 
 namespace EventHandler.Modifiers {
     public class EventScaleX : EventModifier {
@@ -13,7 +13,7 @@ namespace EventHandler.Modifiers {
             Func = func;
         }
 
-        public override SpriteEvent Modify(SpriteEvent ev) {
+        public override Event.Event Modify(Event.Event ev) {
             ev.X *= Func(ev.T);
             return ev;
         }

@@ -1,6 +1,6 @@
 ﻿using System;
 using Community.CsharpSqlite;
-using EventHandler.Sprite;
+using EventHandler.Event;
 
 namespace EventHandler.Modifiers {
     /// <summary>
@@ -17,7 +17,7 @@ namespace EventHandler.Modifiers {
             RadiansFunc = radiansFunc;
         }
 
-        public override SpriteEvent Modify(SpriteEvent ev) {
+        public override Event.Event Modify(Event.Event ev) {
             try {
                 var div = ev.Y / ev.X;
                 ev.R = (float) (- Math.Atan(div) + Math.PI / 2) + RadiansFunc(ev.T);
