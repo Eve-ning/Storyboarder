@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using OsuParsers.Storyboards.Objects;
 using SpriteMaker;
 
 namespace StoryboardMaker {

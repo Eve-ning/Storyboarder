@@ -17,6 +17,7 @@ namespace SpriteMaker {
         public StoryboardSprite CreateOsuSprite() {
             var sbSprite = new StoryboardSprite(Origins.Centre, SpritePath, 0, 0);
             bool first = true;
+            var rotation = 0;
             Event prev = new Event();
             foreach (var v in Events) {
                 var curr = new Event(v);
@@ -30,12 +31,14 @@ namespace SpriteMaker {
                     (int) prev.T,(int) curr.T,
                     prev.XY, curr.XY);
                 sbSprite.Commands.Commands.Add(cmd);
-                if (!(Math.Abs(prev.R - curr.R) > Math.PI)) {
-                    var cmdR = new Command(CommandType.Rotation, Easing.None,
-                        (int) prev.T, (int) curr.T,
-                        prev.R, curr.R);
-                    sbSprite.Commands.Commands.Add(cmdR);
+                //1.567193,-1.5685729
+                if (curr.R > prev.R) {
+                    
                 }
+                var cmdR = new Command(CommandType.Rotation, Easing.None,
+                    (int) prev.T, (int) curr.T,
+                    prev.R, curr.R);
+                sbSprite.Commands.Commands.Add(cmdR);
                 prev = curr;
             }
             return sbSprite;

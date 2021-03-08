@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Numerics;
 using EventMaker;
 using EventMaker.Modifiers;
 using NUnit.Framework;
@@ -64,17 +65,31 @@ namespace EventUT {
         }
 
         [Test]
-        public void TestBasicLinearRotation() {
-            PlotPoints(new EventAddRotateXY((float) Math.PI * 3));
-        }
+        public void TestBasicConstRotation() {
+            PlotPoints(new List<EventModifier>() { 
+                new EventAddRotateXY((float) Math.PI * 3),
+            });
+    }
 
         [Test]
         public void TestBasicRotation() {
-            PlotPoints(new EventAddRotateXY(t => (float) (16 * Math.PI * t)));
+            PlotPoints(new List<EventModifier>(){
+                new EventAddRotateXY(t => (float) (16 * Math.PI * t)),
+                new EventAlignRotate()
+            }
+            );
+        }
+        [Test]
+        public void TestBasicOffsetAlign() {
+            PlotPoints(new List<EventModifier>(){
+                new EventAddRotateXY(t => (float) (16 * Math.PI * t)),
+                new EventAlignRotate(origin: new Vector2(0.25f,0.25f))
+            }
+            );
         }
 
         [Test]
-        public void TestBasicLinearScaleX() {
+        public void TestBasicConstScaleX() {
             PlotPoints(new List<EventModifier>() {
                 new EventAddRotateXY((float) Math.PI / 2),
                 new EventScaleX(0.5f)
@@ -82,7 +97,7 @@ namespace EventUT {
         }
 
         [Test]
-        public void TestBasicLinearScaleY() {
+        public void TestBasicConstScaleY() {
             PlotPoints(new EventScaleY(0.5f));
         }
 
@@ -139,7 +154,8 @@ namespace EventUT {
                 new EventSetSize(t => -t + 1),
                 new EventSetAlpha(t => (-t * 3 + 1) / 4),
                 new EventScaleX(t => (float) Math.Sin(-t * 2 * Math.PI)),
-                new EventScaleY(t => (float) Math.Cos(-t * 2 * Math.PI))
+                new EventScaleY(t => (float) Math.Cos(-t * 2 * Math.PI)),
+                new EventAlignRotate()
             });
         }
 

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Numerics;
 
 namespace EventMaker.Modifiers {
     /// <summary>
@@ -6,20 +7,23 @@ namespace EventMaker.Modifiers {
     /// </summary>
     public class EventAlignRotate : EventModifier {
         public Func<float, float> RadiansFunc;
+        public Func<float, Vector2> OriginFunc;
 
-        public EventAlignRotate(float radians = 0f) {
+        public EventAlignRotate(float radians = 0f, Vector2 origin = default(Vector2)) {
             RadiansFunc = f => radians;
+            OriginFunc = f => origin;
         }
 
-        public EventAlignRotate(Func<float, float> radiansFunc) {
+        public EventAlignRotate(Func<float, float> radiansFunc, Vector2 origin = default(Vector2)) {
             RadiansFunc = radiansFunc;
+            OriginFunc = f => origin;
         }
 
         public override Event Modify(Event ev) {
             try {
-                var div = ev.Y / ev.X;
-                ev.R += (float) (- Math.Atan(div) + Math.PI / 2) + RadiansFunc(ev.T);
-                if (ev.X < 0) ev.R += (float) Math.PI;
+                ev.R += (float)
+                    (- Math.Atan2(ev.Y - OriginFunc(ev.T).Y,
+                                  ev.X - OriginFunc(ev.T).X) + Math.PI / 2) + RadiansFunc(ev.T);
             }
             catch (DivideByZeroException exc) {
                 ev.R = RadiansFunc(ev.T);

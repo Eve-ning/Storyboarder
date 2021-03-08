@@ -11,7 +11,7 @@ namespace EventMaker {
             Events = events;
         }
 
-        public EventList(List<Event> events, int size) {
+        public EventList(int size) {
             Events = Matrix<float>.Build.Dense(size, 6);
         }
         

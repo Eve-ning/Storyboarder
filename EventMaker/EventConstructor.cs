@@ -43,7 +43,7 @@ namespace EventMaker {
         /// <param name="points">The number of points to generate</param>
         /// <returns>A List of Sampled Vector3 points</returns>
         public EventList SampleEvents(int points) {
-            var evList = new EventList(new List<Event>(), points + 1);
+            var evList = new EventList(points + 1);
             var evDiff = Begin - End;
 
             for (var t = 0; t <= points; t++)

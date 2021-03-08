@@ -34,11 +34,11 @@ namespace EventMaker {
         public EventModify SetY       (Funct value) { return WithModifiers(new EventSetY       (value)); }
         public EventModify SetY       (float value) { return WithModifiers(new EventSetY       (value)); }
 
-        public EventModify AlignRotate(float radiansOffset = 0f) {
-            return WithModifiers(new EventAlignRotate(radiansOffset));
+        public EventModify AlignRotate(float radiansOffset = 0f, Vector2 origin = default(Vector2)) {
+            return WithModifiers(new EventAlignRotate(radiansOffset, origin));
         }
-        public EventModify AlignRotate(Funct radiansFunc) {
-            return WithModifiers(new EventAlignRotate(radiansFunc));
+        public EventModify AlignRotate(Funct radiansFunc, Vector2 origin = default(Vector2)) {
+            return WithModifiers(new EventAlignRotate(radiansFunc, origin));
         }
         
         public EventModify FitXY(float toLowerX, float toUpperX, float toLowerY, float toUpperY) {

@@ -20,12 +20,5 @@ namespace SpriteUT {
             EventList = Constructor.SampleEvents(_pts);
         }
 
-        [Test]
-        public void TestTlWorkflowCircle() {
-            var sprite = new Sprite(EventList, "sprite.jpg");
-            var sbspr = sprite.Export.CreateOsuSprite();
-            Assert.True(true);
-            
-        }
     }
 }
